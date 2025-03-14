@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/quiz.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+        <div id="button-box" class="active">
+            <button id="btn" class="btn-start">Start Quiz</button>
+        </div>
+        <div id="quiz-box" class="card">
+           
+            <div id="header" class="card-header">
+                <div class="app-title">QUİZ APP</div>
+                <div class="question-index"></div>
+                <div class="time">
+                    <div class="time-text"> Kalan Süre</div>
+                    <div class="time-second"> 10 </div>
+                </div>
+                <div class="time-line"></div>
+            </div>
+            
+
+            <div id="body"></div>
+
+
+            <div id="footer" class="card-footer">
+                <button id="btn" class="btn-back">
+                    <i class="bi bi-arrow-left"></i>
+                    Önceki Soru
+                </button>
+                
+                <button id="btn" class="btn-answer">Cevap
+                </button>
+                
+                <button id="btn" class="btn-next">Sonraki Soru
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+
+            </div>
+
+        </div>
+        <div id="score-box" class="card card-body">
+            <i class="bi bi-trophy"></i>
+            <div class="score-text"></div>
+            <div class="card-footer">
+                <button id="btn" class="btn-replay">Başa Dön</button>
+                <button id="btn" class="btn-quit">Sınavdan Çık</button>
+            </div>
+        </div>
+
+    </div>
+    
+
+
+
+
+    <script src="js/soru.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>

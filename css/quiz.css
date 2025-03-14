@@ -1,0 +1,178 @@
+.app-container {
+    width: 400px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: hsl(356, 32%, 91%);
+    box-sizing: border-box;
+    border: 2px solid hsl(356, 72%, 79%);
+    border-radius: 5px;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+};
+
+#quiz-box #header {
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    position: relative;
+   
+}
+
+.app-title {
+    font-size: 30px;
+    text-align: center;
+    color: red;
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.question-index{
+    border-radius: 5px;
+    background-color:rgb(249, 95, 95) ;
+    display: inline-block;
+    padding: 5px;
+    margin-left: 30px;
+}
+
+.option-list {
+    padding: 15px 10px;
+}
+
+.option-list .option{
+    border: 1px solid #151D3B;
+    border-radius: 5px;
+    padding: 8px 15px;
+    font-size: 16px;
+    margin-bottom: 10px;
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.option-list .option:hover{
+    color: #112b2c;
+    background-color: #ffd33d;
+}
+
+.option-list .option.correct {
+    color: #155724;
+    background-color: #d4edda;
+}
+
+
+.option-list .option.incorrect {
+    color: #721c24;
+    background-color: #f8d7da;
+}
+
+.option-list .option.disabled {
+    pointer-events: none;
+}
+
+.card-footer {
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
+}
+
+#btn {
+    display: flex;
+    align-items: flex-start;
+    background-color: #f8d7da;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 2px solid #f4949c;
+    padding: 6px;
+    margin: 3px 10px;
+}
+
+.summary .bi-arrow-right {
+    padding-left: 3px;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+}
+
+.summary .bi-arrow-left {
+    padding-right: 3px;
+    align-items: center;
+    text-align: center;
+    font-size: 18px;
+}
+
+#score-box {
+    text-align: center;
+    padding: 30px;
+}
+
+#score-box i {
+    font-size: 100px;
+    color: red;
+    margin-bottom: 10px;
+}
+
+#score-box .score-text {
+    font-size: 18px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+#button-box {
+    text-align: center;
+}
+
+#button-box, #quiz-box, #score-box {
+    display: none;
+}
+
+#button-box.active, #quiz-box.active, #score-box.active {
+    display: block;
+}
+
+/* Kalan Süre */
+.time {
+    display: inline-flex;
+    align-items: center;
+    background-color: #f4949c;
+    color: black;
+    padding: 5px;
+    border-radius: 3px;
+    font-size: 15px;
+}
+
+.time .time-text {
+    font-size: 14px;
+}
+
+.time .time-second {
+    background-color: #f8d7da;
+    border-radius: 3px;
+    padding: 3px;
+    margin-left: 3px;
+    width: 25px;
+    text-align: center;
+}
+
+.btn-next {
+    opacity: 0;
+}
+
+.btn-next.show {
+    opacity: 1;
+}
+
+.time-line {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background-color: #f0a500;
+}
