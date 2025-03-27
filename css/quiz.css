@@ -1,194 +1,200 @@
 * {
-    margin: 0;
-    padding: 0;
-    font-family: ;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: ;
+  box-sizing: border-box;
 }
 
 body {
-    background: #edd4d6;
+  background: #edd4d6;
 }
-.app-container {
-    width: 550px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #f8d7da;
-    box-sizing: border-box;
-    border: 2px solid hsl(356, 72%, 79%);
-    padding: 10px;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-};
 
+.popup-hide {
+  display: none;
+}
+
+.app-container {
+  width: 550px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #f8d7da;
+  box-sizing: border-box;
+  border: 2px solid hsl(356, 72%, 79%);
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 
 #quiz-box #header {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    justify-content:space-between;
-    position: relative;
-    margin: 10px 0;
-    padding: 10px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  margin: 10px 0;
+  padding: 10px;
 }
 
 .app-title {
-    font-size: 30px;
-    color: rgb(176, 71, 88);
-    display: inline-block;
-    margin-right: 30px;
+  font-size: 30px;
+  color: rgb(176, 71, 88);
+  display: inline-block;
+  margin-right: 30px;
 }
 
-.question-index{
-    border-radius: 5px;
-    background-color:rgb(249, 95, 95) ;
-    display: inline-block;
-    padding: 5px;
-    margin-left: 30px;
+.question-index {
+  border-radius: 5px;
+  background-color: rgb(249, 95, 95);
+  display: inline-block;
+  padding: 5px;
+  margin-left: 30px;
 }
-
 
 .option-list {
-    padding: 15px 10px;
+  padding: 15px 10px;
 }
 
-.option-list .option{
-    border: 1px solid #f4949c;
-    border-radius: 5px;
-    padding: 10px 10px;
-    font-size: 16px;
-    margin-bottom: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
+.option-list .option {
+  border: 1px solid #f4949c;
+  border-radius: 5px;
+  padding: 10px 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
 }
 
-.option-list .option:hover{
-    color: black;
-    background-color: rgb(212, 209, 209);
+.option-list .option:hover {
+  color: black;
+  background-color: rgb(212, 209, 209);
 }
 
 .option-list .option.correct {
-    color: #155724;
-    background-color: #d4edda;
+  color: #155724;
+  background-color: #d4edda;
 }
 
-
 .option-list .option.incorrect {
-    color: #721c24;
-    background-color: #f8d7da;
+  color: #721c24;
+  background-color: #f8d7da;
 }
 
 .option-list .option.disabled {
-    pointer-events: none;
+  pointer-events: none;
 }
 
 .card-footer {
-    font-size: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-direction: row;
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: row;
 }
 
 #btn {
-    display: flex;
-    align-items: flex-start;
-    background: #f8d7da;
-    font-size: 16px;
-    font-weight: 500;
-    border-radius: 4px;
-    border: 1px solid #f4949c;
-    padding: 10px;
-    margin: 10px 0;
-    text-align: center;
-    cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  background: #f8d7da;
+  font-size: 16px;
+  font-weight: 500;
+  border-radius: 4px;
+  border: 1px solid #f4949c;
+  padding: 10px;
+  margin: 10px 0;
+  text-align: center;
+  cursor: pointer;
 }
 
 .summary .bi-arrow-right {
-    padding-left: 3px;
-    align-items: center;
-    text-align: center;
-    font-size: 18px;
+  padding-left: 3px;
+  align-items: center;
+  text-align: center;
+  font-size: 18px;
 }
 
 .summary .bi-arrow-left {
-    padding-right: 3px;
-    align-items: center;
-    text-align: center;
-    font-size: 18px;
+  padding-right: 3px;
+  align-items: center;
+  text-align: center;
+  font-size: 18px;
 }
 
 #score-box {
-    text-align: center;
-    padding: 30px;
+  text-align: center;
+  padding: 30px;
 }
 
 #score-box i {
-    font-size: 100px;
-    color: red;
-    margin-bottom: 10px;
+  font-size: 100px;
+  color: red;
+  margin-bottom: 10px;
 }
 
 #score-box .score-text {
-    font-size: 18px;
-    font-weight: 500;
-    margin-bottom: 10px;
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 10px;
 }
 
 .app-container .btn-start {
-    text-align: center;
-    align-items: center;
+  text-align: center;
+  align-items: center;
 }
 
-#button-box, #quiz-box, #score-box {
-    display: none;
+#button-box,
+#quiz-box,
+#score-box {
+  display: none;
 }
 
-#button-box.active, #quiz-box.active, #score-box.active {
-    display: block;
+#button-box.active,
+#quiz-box.active,
+#score-box.active {
+  display: block;
 }
 
 /* Kalan Süre */
 .time {
-    display: inline-flex;
-    align-items: center;
-    background-color: #f4949c;
-    color: black;
-    padding: 5px;
-    border-radius: 3px;
-    font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  background-color: #f4949c;
+  color: black;
+  padding: 5px;
+  border-radius: 3px;
+  font-size: 15px;
 }
 
 .time .time-text {
-    font-size: 14px;
+  font-size: 14px;
 }
 
 .time .time-second {
-    background-color: #f8d7da;
-    border-radius: 3px;
-    padding: 3px;
-    margin-left: 3px;
-    width: 25px;
-    text-align: center;
+  background-color: #f8d7da;
+  border-radius: 3px;
+  padding: 3px;
+  margin-left: 3px;
+  width: 25px;
+  text-align: center;
 }
 
 .btn-next {
-    opacity: 0;
+  opacity: 0;
 }
 
 .btn-next.show {
-    opacity: 1;
+  opacity: 1;
 }
 
 .time-line {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 4px;
-    background-color: #f0a500;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background-color: #f0a500;
 }
