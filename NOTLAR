@@ -1,0 +1,353 @@
+
+HTML kodlarım (<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz App</title>
+
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" /> -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="css/quiz.css">
+</head>
+
+<body>
+
+    <div class="app-container">
+        <div id="button-box" class="active">
+            <button id="btn" class="btn-start">Start Quiz</button>
+        </div>
+        <div id="quiz-box" class="card">
+            <div id="header" class="card-header">
+                <div class="app-title">QUİZ APP</div>
+                <div class="question-index">
+                    <div id="onay-container" class="hidden">
+                        <p>Bu cevaptan emin misiniz?</p>
+                        <button id="btnEvet" class="btn">Evet</button>
+                        <button id="btnHayir" class="btn">Hayır</button>
+                    </div>
+                </div>
+                
+                <div class="time">
+                    <div class="time-text"> Kalan Süre</div>
+                    <div class="time-second"> 10 </div>
+                </div>
+                <div class="time-line"></div>
+            </div>
+            
+
+            <div id="body"></div>
+
+            <div id="footer" class="card-footer">
+                <button id="btn" class="btn-back">
+                    <i class="bi bi-arrow-left"></i>
+                    Önceki Soru
+                </button>
+                <button id="btn" class="btn-answer">Cevap
+                </button>
+                <button id="btn" class="btn-next">Sonraki Soru
+                    <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="score-box" class="card card-body">
+            <i class="bi bi-trophy"></i>
+            <div class="score-text"></div>
+            <div class="card-footer">
+                <button id="btn" class="btn-replay">Başa Dön</button>
+                <button id="btn" class="btn-quit">Sınavdan Çık</button>
+            </div>
+        </div>
+
+    </div>
+    
+
+
+
+
+    <script src="js/soru.js"></script>
+    <script src="js/quiz.js"></script>
+    <script src="js/ui.js"></script>
+    <script src="js/app.js"></script>
+
+</body>
+
+</html>)
+
+
+Javascript kodlarım birden fazla belge var! ( app.js (const soruListesi = [
+    new Soru ("1- Üç elma ve iki armut toplanırsa kaç meyve elde edilir?", {a: "7", b: "8", c: "5", d: "12"}, "c"),
+    new Soru ("2- Sekiz elma ve iki armut toplanırsa kaç meyve elde edilir?", {a: "10", b: "8", c: "5", d: "12"}, "a"),
+    new Soru ("3- Üç elma ve beş armut toplanırsa kaç meyve elde edilir?", {a: "7", b: "8", c: "5", d: "12"}, "b"),
+    new Soru ("4- Sekiz elma ve dört armut toplanırsa kaç meyve elde edilir?", {a: "7", b: "8", c: "5", d: "12"}, "d"),
+];
+
+const quiz = new Quiz(soruListesi);
+const ui = new UI();
+
+ui.btnStart.addEventListener("click", function() {
+    startTimer(10);
+    startTimerLine();
+    ui.quizBox.classList.add("active");
+    ui.buttonBox.classList.remove("active");
+    ui.soruGoster(quiz.soruGetir());
+    ui.soruSayisiniGoster(quiz.soruIndex + 1, quiz.sorular.length);
+    ui.btnNext.classList.remove("show");
+});
+
+
+
+ui.btnNext.addEventListener("click", function() {
+    if(quiz.sorular.length != quiz.soruIndex) {
+        startTimer(10);
+        startTimerLine();
+        ui.soruGoster(quiz.soruGetir());
+        ui.soruSayisiniGoster(quiz.soruIndex + 1, quiz.sorular.length);
+        ui.btnNext.classList.remove("show");
+    } else {
+        ui.scoreBox.classList.add("active");
+        ui.quizBox.classList.remove("active");
+        ui.skoruGoster(quiz.dogruCevapSayisi, quiz.sorular.length);
+    }
+});
+
+ui.btnBack.addEventListener("click", function () {
+    if(quiz.sorular.length != quiz.soruIndex) {
+        ui.soruGoster(quiz.soruGotur());
+        ui.soruSayisiniGoster(quiz.soruIndex, quiz.sorular.length);
+        ui.btnBack.classList.remove("show");
+    }else {
+        ui.scoreBox.classList.add("active");
+        ui.quizBox.classList.remove("active");
+        ui.skoruGoster(quiz.dogruCevapSayisi, quiz.sorular.length);
+    }
+})
+
+function optionSelected(e) {
+    clearInterval(counter);
+    clearInterval(counterLine);
+    let selectedElement = e.target;
+
+    if(selectedElement.nodeName == "SPAN") {
+        selectedElement = selectedElement.parentElement;
+    }
+
+    // Seçilen cevabı saklıyoruz
+    const cevap = selectedElement.textContent[0];
+    const soru = quiz.soruGetir();
+
+    // Onay kutusunu aç
+    ui.onayContainer.classList.remove("hidden");
+
+    // Butonların eski event'lerini temizleyelim (ÖNEMLİ!)
+    ui.btnEvet.removeEventListener('click', ui.evetClick);
+    ui.btnHayir.removeEventListener('click', ui.hayirClick);
+
+    // "Evet" Butonuna Tıklanınca
+    ui.btnEvet.addEventListener('click', function () {
+        if (soru.cevabiKontrolEt(cevap)) {
+            quiz.dogruCevapSayisi += 1;
+            selectedElement.classList.add("correct");
+            selectedElement.insertAdjacentHTML("beforeend", ui.correctIcon);
+        } else {
+            selectedElement.classList.add("incorrect");
+            selectedElement.insertAdjacentHTML("beforeend", ui.inCorrectIcon);
+        }
+
+        quiz.soruIndex += 1;
+        ui.disableAllOption();
+        ui.btnNext.classList.add("show");
+        ui.btnBack.classList.add("show");
+
+        // Onay kutusunu gizle
+        ui.onayContainer.classList.add("hidden");
+    });
+
+    // "Hayır" Butonuna Tıklanınca
+    ui.btnHayir.addEventListener('click', function () {
+        // Seçimi iptal et, tekrar seçime izin ver
+        ui.onayContainer.classList.add("hidden");
+    });
+}
+
+
+ui.btnQuit.addEventListener("click", function() {
+    window.location.reload();
+});
+
+
+ui.btnReplay.addEventListener("click", function() {
+    quiz.soruIndex = 0;
+    quiz.dogruCevapSayisi = 0;
+    ui.btnStart.click();
+    ui.scoreBox.classList.remove("active");
+});
+
+
+let counter ; 
+function startTimer (time) {
+    counter = setInterval(timer, 1000);
+    
+    function timer() {
+        ui.timeSecond.textContent = time ;
+        time--;
+
+        if(time < 0) {
+            clearInterval(counter);
+            ui.timeText.textContent = "Süre Bitti";
+
+            ui.disableAllOption();
+            quiz.soruIndex += 1;
+
+            ui.btnNext.classList.add("show");
+        };
+    };
+
+}
+
+
+let counterLine ;
+function startTimerLine () { 
+    let line_width = 0;
+
+    counterLine = setInterval(timer, 20);
+
+    function timer() {
+        line_width += 1;
+
+        ui.timeLine.style.width = line_width + "px";
+
+        if(line_width > 549) {
+            clearInterval(counterLine);
+        }
+    }
+})
+
+ui.js (function UI () {
+    this.quizBox = document.querySelector("#quiz-box");
+    this.buttonBox = document.querySelector("#button-box");
+    this.scoreBox = document.querySelector("#score-box");
+    this.body = document.querySelector("#quiz-box #body");
+    this.correctIcon = '<i class="bi bi-check-circle"></i>';
+    this.inCorrectIcon = '<i class="bi bi-x-circle"></i>';
+    this.btnStart = document.querySelector(".btn-start");
+    this.btnNext = document.querySelector(".btn-next");
+    this.btnBack = document.querySelector(".btn-back");
+    this.btnAnswer = document.querySelector(".btn-answer");
+    this.btnReplay = document.querySelector(".btn-replay");
+    this.btnQuit = document.querySelector(".btn-quit");
+    this.timeText = document.querySelector(".time-text");
+    this.timeSecond = document.querySelector(".time-second");
+    this.timeLine = document.querySelector(".time-line");
+    this.onayContainer = document.querySelector("#onay-container");
+    this.btnEvet = document.querySelector("#btnEvet");
+    this.btnHayir = document.querySelector("#btnHayir");
+}
+
+// Evet tıklanınca
+UI.prototype.evetClick = function () {
+    const selectedElement = document.querySelector('.selected'); // Seçilen öğeyi burada almak gerekiyor
+    if (quiz.soruGetir().cevabiKontrolEt(selectedElement.textContent[0])) {
+        selectedElement.classList.add("correct");
+        selectedElement.insertAdjacentHTML("beforeend", this.correctIcon);
+    } else {
+        selectedElement.classList.add("incorrect");
+        selectedElement.insertAdjacentHTML("beforeend", this.inCorrectIcon);
+    }
+
+    quiz.soruIndex += 1;
+    this.disableAllOption();
+    this.btnNext.classList.add("show");
+    this.btnBack.classList.add("show");
+
+    // Onay kutusunu gizle
+    this.onayContainer.classList.add("hidden");
+};
+
+// Hayır tıklanınca
+UI.prototype.hayirClick = function () {
+    // Seçimi iptal et, tekrar seçime izin ver
+    this.onayContainer.classList.add("hidden");
+};
+
+UI.prototype.soruGoster = function(soru) {
+    this.body.innerHTML = "";
+    const cardBody = document.createElement("div");
+    cardBody.classList.add("card-body");
+
+
+    const title = document.createElement("h5");
+    title.classList.add("question-title");
+    title.textContent = soru.soruMetni;
+
+
+    const optionList = document.createElement("div");
+    optionList.classList.add("option-list");
+
+    for(let [key, value] of Object.entries(soru.cevapSecenekleri)) {
+        const option = document.createElement("div");
+        option.classList.add("option");
+        option.addEventListener("click", optionSelected);
+
+        const span = document.createElement("span");
+        span.textContent = key + ") " + value;
+
+        option.appendChild(span);
+        optionList.appendChild(option);
+    }
+
+    cardBody.appendChild(title);
+    cardBody.appendChild(optionList);
+
+    this.body.appendChild(cardBody);
+
+}
+
+UI.prototype.disableAllOption = function() {
+    const options = document.querySelectorAll(".option");
+    for(let option of options) {
+        option.classList.add("disabled");
+    }
+}
+
+UI.prototype.soruSayisiniGoster = function(soruSirasi, toplamSoru) {
+    const etiket = <span> ${soruSirasi} / ${toplamSoru}</span>;
+    document.querySelector(".question-index").innerHTML = etiket;
+}
+
+UI.prototype.skoruGoster = function(dogruCevap, toplamSoru){
+    const etiket = Toplam ${toplamSoru} soruda ${dogruCevap} doğru cevap verdiniz.;
+    document.querySelector(".score-text").innerHTML = etiket;
+})
+
+quiz.js (function Quiz(sorular) {
+    this.soruIndex = 0;
+    this.sorular = sorular;
+    this.dogruCevapSayisi = 0;
+}
+
+Quiz.prototype.soruGetir = function() {
+    return this.sorular[this.soruIndex];
+}
+
+Quiz.prototype.soruGotur = function() {
+    return this.sorular[this.soruIndex-1];
+}) 
+
+son olarak ise soru.js (function Soru(soruMetni, cevapSecenekleri, dogruCevap) {
+    // const soruMetni = document.getElementById("soruMetni");
+    this.soruMetni = soruMetni ;
+    this.cevapSecenekleri = cevapSecenekleri ;
+    this.dogruCevap = dogruCevap ;
+}
+
+
+Soru.prototype.cevabiKontrolEt = function(cevap) {
+    return cevap === this.dogruCevap;
+}
+ )  
+
+
+ŞİMDİ BU KODLARA GÖRE İSTEDİĞİM TAM OLARAK ŞU.
+// SORUYU CEVAPLARKEN ŞIK SEÇİLDİĞİNDE KULLANICIYA CEVAPTAN EMİN MİSİN MESAJI AÇILACAK EVET İSE DOĞRU CEVAP GELECEK HAYIR İŞARETLERSE AYNI SORUDA KALACAK. SORUNUN CEVABI DOĞRU İSE OTOMATİKMEN SONRAKİ SORUYA GEÇECEK YANLIŞ İSE DOĞRU CEVAP GÖSTERİLECEK. BUNU EKLEMEM LAZIM. BASİTCE VE BENİM KODLARIMI BOZMADAN BUNU YAPAR MISIN?

@@ -3,8 +3,8 @@ function UI () {
     this.buttonBox = document.querySelector("#button-box");
     this.scoreBox = document.querySelector("#score-box");
     this.body = document.querySelector("#quiz-box #body");
-    this.correctIcon = '<i class="bi bi-check-circle"></i>';
-    this.inCorrectIcon = '<i class="bi bi-x-circle"></i>';
+    // this.correctIcon = '<i class="bi bi-check-circle"></i>';
+    // this.inCorrectIcon = '<i class="bi bi-x-circle"></i>';
     this.btnStart = document.querySelector(".btn-start");
     this.btnNext = document.querySelector(".btn-next");
     this.btnBack = document.querySelector(".btn-back");
@@ -14,7 +14,12 @@ function UI () {
     this.timeText = document.querySelector(".time-text");
     this.timeSecond = document.querySelector(".time-second");
     this.timeLine = document.querySelector(".time-line");
+    this.onayContainer = document.querySelector("#onay-container");
+    this.btnEvet = document.querySelector("#btnEvet");
+    this.btnHayir = document.querySelector("#btnHayir");
 }
+
+
 
 UI.prototype.soruGoster = function(soru) {
     this.body.innerHTML = "";
@@ -55,6 +60,13 @@ UI.prototype.disableAllOption = function() {
         option.classList.add("disabled");
     }
 }
+
+
+UI.prototype.onayPopUp = function() {
+    const popup = document.querySelector(".onay-container");
+    popup.classList.toggle("show");
+}
+
 
 UI.prototype.soruSayisiniGoster = function(soruSirasi, toplamSoru) {
     const etiket = `<span> ${soruSirasi} / ${toplamSoru}</span>`;
