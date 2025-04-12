@@ -82,11 +82,11 @@ function optionSelected(e) {
     selectedElement.classList.add("incorrect");
   }
 
-  if (soru.cevabiKontrolEt(cevap)) {
-    quiz.dogruCevapSayisi += 1;
-  } else {
-    selectedElement.classList.add("incorrect");
-  }
+  // if (soru.cevabiKontrolEt(cevap)) {
+  //   quiz.dogruCevapSayisi += 1;
+  // } else {
+  //   selectedElement.classList.add("incorrect");
+  // }
 
   quiz.soruIndex += 1;
   ui.disableAllOption();
@@ -136,7 +136,7 @@ function startTimerLine() {
 
     ui.timeLine.style.width = line_width + "px";
 
-    if (line_width > 549) {
+    if (line_width > 349) {
       clearInterval(counterLine);
     }
   }
